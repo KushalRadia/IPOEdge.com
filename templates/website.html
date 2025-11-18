@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPO Edge - Market Overview</title> 
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">   
+</head>
+<body>
+    <header class="navbar-container">   
+        <div class="logo">
+            <span class="logo-text">IPO Edge</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('calendar') }}">Calendar</a>
+            <a href="{{ url_for('companies') }}">Companies</a>
+            <a href="{{ url_for('dive_deeper_with_ai') }}">Dive Deeper with AI</a>
+            <a href="{{ url_for('learning_videos') }}">Learning Videos</a>
+        </nav>
+    </header>
+    
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-headline">YOUR EDGE IN THE IPO MARKET</h1>
+            <p class="hero-subheadline">Navigate New Listings and Discover Insights on our best IPO Platform.</p>
+            
+            <div class="hero-ctas">
+                <a href="{{ url_for('companies') }}" class="btn hero-btn btn-primary">VIEW TODAY'S IPOS</a>
+                <a href="{{ url_for('dive_deeper_with_ai') }}" class="btn hero-btn btn-secondary">ASK GEMINI AI</a>
+            </div>
+        </div>
+        <img src="static/websitehomepagefinal.jpg">
+    </section>
+    </body>
+</html>

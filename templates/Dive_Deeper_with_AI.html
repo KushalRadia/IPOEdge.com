@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dive Deeper with AI | IPO Edge</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  
+</head>
+<body>
+    <header class="navbar-container">
+        <div class="logo">
+            <span class="logo-text">IPO Edge</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('calendar') }}">Calendar</a>
+            <a href="{{ url_for('companies') }}">Companies</a>
+            <a href="{{ url_for('dive_deeper_with_ai') }}">Dive Deeper with AI</a>
+            <a href="{{ url_for('learning_videos') }}">Learning Videos</a>
+        </nav>
+    </header>
+
+    <div class="cse-main-container">
+    <h1>
+        **********   Personalised AI Assistant   **********
+    </h1>
+    
+    <div class="cse-search-box-wrapper">
+        <div class="gcse-searchbox"></div>
+    </div>
+    
+    <div class="cse-results-frame">
+        <div class="gcse-searchresults"></div>
+    </div>
+    
+    <script async src="https://cse.google.com/cse.js?cx=d6ce823b9d98f4a3e"></script>
+</div>
+    
+</body>
+</html>

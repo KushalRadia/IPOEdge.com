@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPO Companies - IPO Edge</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar-container">
+        <div class="logo">
+            <span class="logo-text">IPO Edge</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('calendar') }}">Calendar</a>
+            <a href="{{ url_for('companies') }}">Companies</a>
+            <a href="{{ url_for('dive_deeper_with_ai') }}">Dive Deeper with AI</a>
+            <a href="{{ url_for('learning_videos') }}">Learning Videos</a>
+        </nav>
+    </header>
+
+    <div class="content-container">
+        <h1>IPO Listings</h1>
+
+        <div class="load-data-section">
+            <p>Click the button to load or refresh the IPO data from the <code>ipo_data.csv</code> file.</p>
+            <a href="{{ url_for('load_csv_data') }}" class="btn btn-Register" id="load-data-btn">Load IPO Data</a>
+            <div id="load-data-message" style="margin-top: 15px; font-weight: 500;"></div>
+        </div>
+
+        <div class="table-scroll-wrapper">
+            <table class="ipo-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>IPO Name</th>
+                        <th>Issue Size (crores)</th>
+                        <th>QIB (x)</th>
+                        <th>HNI (x)</th>
+                        <th>RII (x)</th>
+                        <th>Total Subscription (x)</th>
+                        <th>Offer Price</th>
+                        <th>List Price</th>
+                        <th>Listing Gain (%)</th>
+                        <th>CMP (BSE)</th>
+                        <th>CMP (NSE)</th>
+                        <th>Current Gains (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ipo in ipo_records %}
+                    <tr>
+                        <td>{{ ipo.date }}</td>
+                        <td>{{ ipo.ipo_name }}</td>
+                        <td>{{ ipo.issue_size_crores }}</td>
+                        <td>{{ ipo.qib }}</td>
+                        <td>{{ ipo.hni }}</td>
+                        <td>{{ ipo.rii }}</td>
+                        <td>{{ ipo.total_subscription }}</td>
+                        <td>{{ ipo.offer_price }}</td>
+                        <td>{{ ipo.list_price }}</td>
+                        
+                        <td class="{% if ipo.listing_gain is not none and ipo.listing_gain > 0 %}positive-gain{% elif ipo.listing_gain is not none and ipo.listing_gain < 0 %}negative-gain{% endif %}">
+                            {{ ipo.listing_gain }}
+                        </td>
+                        
+                        <td>{{ ipo.cmp_bse }}</td>
+                        <td>{{ ipo.cmp_nse }}</td>
+
+                        <td class="{% if ipo.current_gains is not none and ipo.current_gains > 0 %}positive-gain{% elif ipo.current_gains is not none and ipo.current_gains < 0 %}negative-gain{% endif %}">
+                            {{ ipo.current_gains }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="13" style="text-align: center; padding: 20px;">
+                            No IPO records found 
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<!--This javascript code is written with the help of AI and its function is just to refresh the data in the table upon clicking the button 
+The API which i was using first happened to be paid version so i have used the csv file which can be updated manually and this is just the
+part of code that dirrects to load the new data into the website table that is made using SQL -->
+    <script> 
+        document.getElementById('load-data-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const msgDiv = document.getElementById('load-data-message');
+            msgDiv.style.display = 'block';
+            msgDiv.style.color = 'var(--text-dark)';
+            msgDiv.innerText = 'Loading... please wait.';
+
+            fetch(this.href)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        msgDiv.style.color = '#f44336'; 
+                        msgDiv.innerText = `Error: ${data.error}. ${data.message || ''}`;
+                    } else {
+                        msgDiv.style.color = '#4caf50'; 
+                        msgDiv.innerText = `${data.message} ${data.info || ''} Please refresh the page to see the new data.`;
+                    }
+                })
+                .catch(err => {
+                    msgDiv.style.color = '#f44336';
+                    msgDiv.innerText = 'An unknown JavaScript error occurred. Check the console.';
+                    console.error('Error loading data:', err);
+                });
+        });
+    </script>
+
+</body>
+</html>
