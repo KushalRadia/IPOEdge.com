@@ -66,7 +66,7 @@ def load_csv_data():
     db.session.commit()
 
     records_added = 0
-    with open(file_path, mode='r') as csvfile:
+    with open(file_path, mode='r', encoding='windows-1252') as csvfile:
         reader = csv.DictReader(csvfile)
         column_map = {
             'Date': 'date', 'IPO_Name': 'ipo_name', 'Issue_Size(crores)': 'issue_size_crores', 
